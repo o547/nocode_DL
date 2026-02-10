@@ -8,21 +8,20 @@ def learn(file_path, file_name, epoch_size, input_size, mid1_size, mid2_size, ou
     import pandas as pd
     import numpy as np
 
-    my_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    my_device="cpu"
+    
+    #GPUをOS側で設定済みであればコメントアウト
+    #my_device = torch.device("cpu" if torch.cuda.is_available() else "cpu")
 
-    # カスタムデータセットの作成
     class CustomDataset(Dataset):
         def __init__(self, datas, labels):
-            # データとラベルを受け取るコンストラクタ
             self.datas = datas
             self.labels = labels
 
         def __len__(self):
-            # データセットのサイズを返す
             return len(self.datas)
 
         def __getitem__(self, idx):
-            # 指定したインデックスのデータとラベルを返す
             return self.datas[idx], self.labels[idx]
     try:
         df = pd.read_csv(file_path, header=0)
@@ -75,7 +74,7 @@ def learn(file_path, file_name, epoch_size, input_size, mid1_size, mid2_size, ou
             x = self.fc2(x)
             x = F.relu(x)
 
-            x = self.dropout(x)
+            # x = self.dropout(x)
 
             x = self.fc3(x)
             return x
