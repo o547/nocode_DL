@@ -1,0 +1,77 @@
+{% extends "dl/base.html" %}
+{% block body %}
+    <div class="flex">
+        <div>
+            <h2 style="margin-top: 0;">モデルを学習させる</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <p style="margin: 0;">データ：{{ file.name }}.csv</p>
+                中間層１の数 = <input type="number" name="mid1_size" id="mid1_size" class="number_input" required> <br>
+                中間層２の数 = <input type="number" name="mid2_size" id="mid2_size" class="number_input" required> <br>
+                エポック(繰り返し)数 = <input type="number" name="epoch_size" id="epoch_size" class="number_input" required> <br>
+                <button type="submit" class="start_learn">学習実行</button>
+            </form>
+            <div id="loading">
+                {% if file.learned_model %}
+                (モデルは学習済みです)
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            {% load static %}
+            <img src="{% static 'dl/media/model.png' %}" style="width: 380px; margin-left: 60px; margin-top: 10px;">
+        </div>
+        <div style="margin-left: auto;">
+            <button class="delete">csvファイルを削除</button>
+        </div>
+    </div>
+    {% if file.learned_model %}
+    <hr>
+    <h2>予測を見る</h2>
+    <h3>手入力</h3>
+    <form class="flex" method="POST">
+    {% csrf_token %}
+        <div>入力：</div>
+        {% for input in inputs %}
+        ({{ forloop.counter }})
+        <input type="number" class="number_input" name="input{{ forloop.counter0 }}" id="input{{ forloop.counter0 }}" style="margin-right: 10px" step="0.001" required value={{ input }}>
+        {% endfor %}
+        <button type="submit">計算</button>
+    </form>
+    <div class="flex">
+        <div>出力：</div>
+        {% for output in outputs %}
+        ({{ forloop.counter }})
+        <input type="number" class="number_input" style="margin-right: 10px" value={{ output }}>
+        {% endfor %}
+    </div>
+    </form>
+    <h3>csvファイルで入力</h3>
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="file" name="input_only_csv" id="input_only_csv" accept=".csv" required>
+        <button type="submit">送信</button>
+    </form>
+    {% if output_csv_name %}
+        {% load static %}
+        <a href="{% static 'dl/files/' %}{{ output_csv_name }}">ダウンロード</a>
+    {% endif %}
+    <p><a href="/add" class="blue_a">アップロード時</a>と同じフォーマットで、入力の列のみ記入してください。<br>出力の列に予測の結果が記されます</p>
+
+    {% endif %}
+
+    
+    <script>
+        let delete_button=document.querySelector(".delete");
+        delete_button.addEventListener("click",()=>{
+            let result = false
+            result = window.confirm("学習結果ではなく、csvファイルを削除します。\n本当によろしいですか？");
+            if(result){
+                window.location.href = '/edit/{{ file.id }}';
+            }
+        })
+    </script>
+
+    {% load static %}
+    <script src="{% static 'dl/js/base.js' %}"></script>
+    {% endblock %}

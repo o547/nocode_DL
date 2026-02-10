@@ -1,0 +1,25 @@
+{% extends "dl/base.html" %}
+{% block body %}
+<div class="box_area">
+    {% for file in files %}
+    <div class="file_box" onclick="location.href='file/{{file.id}}'">
+        <h3>{{file.name}}</h3>
+        <a href="file/{{file.id}}">モデルを学習</a>
+        <p style="margin: 5px 0;">
+        {% if file.learned_model %}
+        学習済みモデル：あり
+        {% else %}
+        学習済みモデル：なし
+        {% endif %}
+        </p>
+    </div>
+    {% empty %}
+    {% endfor %}
+    <a href="/add" class="non_decoration_a"><div class="add_box">
+        {% load static %}
+        <img src="{% static 'dl/media/upload_24.svg' %}">
+        <p class="upload_text">アップロード</p>
+    </div></a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoCodeDeepLearning</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dl/css/base.css' %}" />
+  </head>
+  <body>
+    <header><a href="/" class="logo">NCDL</a></header>
+    <div class="main">{% block body %} {% endblock %}</div>
+  </body>
+</html>

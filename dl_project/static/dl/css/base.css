@@ -1,0 +1,124 @@
+/* https://colorhunt.co/palette/0f28541c4d8d4988c4bde8f5 */
+.number_input{
+    width: 70px;
+}
+.flex{
+    display: flex
+}
+
+body{
+    margin: 0;
+    background-color: rgb(24, 24, 24);
+    color: rgb(233, 233, 233);
+}
+
+input{
+    background-color: rgb(52, 52, 52);
+    color: white;
+}
+
+input[type="file"]{
+    background-color: rgb(24, 24, 24);
+}
+
+button{
+    background-color: rgb(213, 213, 213);
+    border-radius: 3px;
+    border: 0;
+    padding-block:0;
+    min-width: 50px;
+    padding: 2px 4px
+}
+
+header{
+    background-color: #1C4D8D;
+    /* background: linear-gradient(90deg,rgb(61, 121, 182), rgb(72, 76, 198)); */
+    font-size: 2rem;
+    font-weight:bold;
+    color: white;
+    padding: 10px;
+}
+
+header .logo{
+    text-decoration: none;
+    color: white;
+}
+
+.file_box{
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    width: 300px;
+    background-color: #619acf;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: break-word;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+
+}
+
+.file_box a{
+    color: rgb(238, 238, 238);
+}
+
+.add_box{
+    display: flex;
+    flex-direction: column;
+    height: 110px;
+    width: 110px;
+    margin:30px 50px ;
+    padding: 20px;
+    background-color: #619acf;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.add_box img{
+    height: 60px;
+}
+
+.add_box p{
+    margin: 2px;
+}
+
+
+.file_box h3{
+    color: rgb(0, 0, 0);
+    margin-top: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.upload_text{
+    color: black;
+}
+
+.box_area{
+    display: flex;    
+    flex-wrap: wrap;
+
+}
+
+.non_decoration_a{
+    text-decoration: none;
+    color: rgb(238, 238, 238);
+}
+
+.delete{
+    background-color: rgb(179, 32, 32);
+    color: white;
+    margin: 10px;
+}
+
+.main{
+    margin: 20px;
+}
+
+.blue_a{
+    color: rgb(54, 95, 206);
+}
+
