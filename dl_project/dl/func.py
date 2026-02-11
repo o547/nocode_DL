@@ -10,8 +10,8 @@ def learn(file_path, file_name, epoch_size, input_size, mid1_size, mid2_size, ou
 
     my_device="cpu"
     
-    #GPUをOS側で設定済みであればコメントアウト
-    #my_device = torch.device("cpu" if torch.cuda.is_available() else "cpu")
+    #GPUをOS側で設定済みであればコメントアウトを外す
+    #my_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     class CustomDataset(Dataset):
         def __init__(self, datas, labels):
@@ -50,8 +50,10 @@ def learn(file_path, file_name, epoch_size, input_size, mid1_size, mid2_size, ou
         batch_size=1
     elif (len(all_datas)<100):
         batch_size=10
-    else:
+    elif (len(all_datas)<1000):
         batch_size=100
+    else:
+        batch_size=1000
 
     # DataLoaderの作成
     data_loader = DataLoader(dataset=custom_dataset, batch_size=batch_size, shuffle=True)
@@ -123,12 +125,18 @@ def learn(file_path, file_name, epoch_size, input_size, mid1_size, mid2_size, ou
     model = mlp_net()
     model = model.to(my_device)
     # 重みをロード
-    # model.load_state_dict(torch.load('student_2_weight.pth', map_location=my_device))
+    # model.load_state_dict(torch.load(file_path.replace(".csv","_weight.pth"), map_location=my_device))
+    # モデルをロード
+    # model = torch.jit.load(file_path.replace(".csv",".pth"), map_location=my_device))
+
 
 
     train(model, data_loader)
     acc, loss = test(model, test_loader)
     print(f"正答率: {acc}, 損失: {loss}")
+
+    model_scripted = torch.jit.script(model)
+    model_scripted.save(file_path.replace(".csv",".pth"))
 
     model_scripted = torch.jit.script(model)
     model_scripted.save(file_path.replace(".csv",".pth"))
